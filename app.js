@@ -1,1 +1,1 @@
-// your beatiful code
+const app = {};
