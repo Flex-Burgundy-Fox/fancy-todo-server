@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
     due_date: {
       type: DataTypes.TEXT,
-      isAfter: new Date().toString()
+      validate: {
+        isAfter: Date.now()
+      }
     }
   }, {
     sequelize,
