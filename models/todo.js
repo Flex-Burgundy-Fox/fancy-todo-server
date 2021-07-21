@@ -17,7 +17,15 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.STRING,
-    due_date: DataTypes.DATE
+    due_date: {
+      type: DataTypes.DATE,
+      validate: {
+        isAfter: {
+          args: new Date().toLocaleDateString(),
+          msg: "Only allow today's date or the date after this"
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Todo',
