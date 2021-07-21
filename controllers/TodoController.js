@@ -11,7 +11,7 @@ class TodoController {
         })
         .catch(err => {
             res.status(500).json({
-                error : err
+                error : 'Internal Server Error!'
             })
         })
     }
@@ -31,7 +31,7 @@ class TodoController {
         })
         .catch(err => {
             res.status(500).json({
-                error : err
+                error : 'Internal Server Error!'
             })
         })
     }
@@ -55,7 +55,7 @@ class TodoController {
                 })
             } else {
                 res.status(500).json({
-                    error : err
+                    error : 'Internal Server Error!'
                 })
             }
             
@@ -91,7 +91,7 @@ class TodoController {
                 })
             } else {
                 res.status(500).json({
-                    error : err
+                    error : 'Internal Server Error!'
                 })
             }
         })
@@ -126,7 +126,7 @@ class TodoController {
                 })
             } else {
                 res.status(500).json({
-                    error : err
+                    error : 'Internal Server Error!'
                 })
             }
         })
@@ -153,11 +153,11 @@ class TodoController {
         .catch(err => {
             if(err.message === 'data not found') {
                 res.status(404).json({
-                    error : err
+                    error : 'data not found!'
                 })
             } else {
                 res.status(500).json({
-                    error : err
+                    error : 'Internal Server Error!'
                 })
             }
         })
