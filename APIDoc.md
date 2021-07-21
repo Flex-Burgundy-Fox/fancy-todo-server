@@ -23,14 +23,24 @@
   <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
 
   * **Code:** 201 <br />
-    **Content:** `{ id : 12 }`
+    **Content:** `{
+    "result": {
+        "id": number,
+        "title": string,
+        "description": string,
+        "status": sting||null,
+        "due_date": date,
+        "updatedAt":date,
+        "createdAt":date
+    }
+}`
  
 * **Error Response:**
 
   <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
 
-  * **Code:** 400 VALIDATION ERRORS <br />
-    **Content:** `{ error : "Validation Errors" }`
+  * **Code:** 500 VALIDATION ERRORS <br />
+    **Content:** `{ error : "internal server error" }`
 
 * **Sample Call:**
 
