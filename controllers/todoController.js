@@ -12,7 +12,9 @@ class TodoController {
 
           res.status(400).json({ message })
         } else {
-          res.status(500).json(err)
+          const message = err.name
+
+          res.status(500).json({ message })
         }
       })
   }
@@ -24,7 +26,11 @@ class TodoController {
       ]
     })
       .then((result) => res.status(200).json({ todos: result }))
-      .catch((err) => res.status(500).json(err))
+      .catch((err) => {
+        const message = err.name
+
+        res.status(500).json({ message })
+      })
   }
 
   static showTodoById(req, res) {
@@ -38,7 +44,11 @@ class TodoController {
           res.status(200).json({ todo: result })
         }
       })
-      .catch((err) => res.status(500).json(err))
+      .catch((err) => {
+        const message = err.name
+
+        res.status(500).json({ message })
+      })
   }
 
   static updateTodo(req, res) {
@@ -69,7 +79,9 @@ class TodoController {
 
           res.status(400).json({ message })
         } else {
-          res.status(500).json(err)
+          const message = err.name
+
+          res.status(500).json({ message })
         }
       })
   }
@@ -102,7 +114,9 @@ class TodoController {
 
           res.status(400).json({ message })
         } else {
-          res.status(500).json(err)
+          const message = err.name
+
+          res.status(500).json({ message })
         }
       })
   }
@@ -124,7 +138,11 @@ class TodoController {
           res.status(404).json({ message: "Data not found" })
         }
       })
-      .catch((err) => res.status(500).json(err))
+      .catch((err) => {
+        const message = err.name
+
+        res.status(500).json({ message })
+      })
   }
 }
 
