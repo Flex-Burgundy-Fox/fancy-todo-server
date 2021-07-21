@@ -18,14 +18,18 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     status: DataTypes.STRING,
     due_date: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       validate: {
-        isAfter: Date.now()
+        isAfter: new Date().toString()
       }
     }
   }, {
     sequelize,
     modelName: 'Todo',
-  });
+  }),
+  Todo.beforeCreate(async(user, options) => {
+    user.due_date = user.due_date.toString().split('T')[0]
+    user.status = ''
+  })
   return Todo;
 };
