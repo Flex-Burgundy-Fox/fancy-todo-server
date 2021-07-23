@@ -7,7 +7,8 @@ class Controller {
             title : req.body.title,
             description : req.body.description,
             status : req.body.status,
-            due_date : req.body.due_date
+            due_date : req.body.due_date,
+            UserId : req.currentUser.id
         }
         Todo.create(input)
         .then((result) => {
@@ -20,6 +21,11 @@ class Controller {
 
     static viewTodo (req, res){
         Todo.findAll()
+        // Todo.findAll({
+        //     where : {
+        //         UserId : req.currentUser.id
+        //     }
+        // })
         .then((result) => {
             res.status(200).json(result)
         }).catch((err) => {
@@ -28,7 +34,7 @@ class Controller {
     }
 
     static findTodo (req, res){
-        Todo.findAll(req.body, {
+        Todo.findAll({
             where : {
                 id : +req.params.id
             }
