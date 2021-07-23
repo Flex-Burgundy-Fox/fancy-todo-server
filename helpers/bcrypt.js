@@ -5,7 +5,6 @@ function hashingPassword(plaintextPassword ) {
   const salt = bcrypt.genSaltSync(saltRounds)
   const hash = bcrypt.hashSync(plaintextPassword, salt)
   // Store hash in your password DB.
-
   return hash
 }
 

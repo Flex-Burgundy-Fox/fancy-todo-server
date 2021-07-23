@@ -1,12 +1,22 @@
-const { Todo } = require("../models")
+const { Todo, User } = require("../models")
+const moment = require("moment")
 
 class TodoController {
   static addTodo(req, res) {
     const { title, description, status, due_date } = req.body
 
-    Todo.create({ title, description, status, due_date })
+    const UserId  = req.currentUser.id
+
+    Todo.create({ 
+      title,
+      description,
+      status,
+      due_date,
+      UserId
+    })
       .then((result) => res.status(201).json({ todo: result }))
       .catch((err) => {
+        console.log(err)
         if (err.name === "SequelizeValidationError") {
           const message = err.errors[0].message
 
