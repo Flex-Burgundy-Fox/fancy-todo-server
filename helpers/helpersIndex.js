@@ -1,0 +1,26 @@
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const PRIVATE_KEY = 'RAHASIA'
+
+
+function hashingPassword(password) {
+  let salt = bcrypt.genSaltSync(10)
+  let hashedText = bcrypt.hashSync(password, salt)
+
+  return hashedText
+}
+
+function comparePassword(passwordUser, passwordDB) {
+  return bcrypt.compareSync(passwordUser, passwordDB)
+}
+
+function generateToken(payload) {
+  const token = jwt.sign(payload, PRIVATE_KEY)
+  return token
+}
+
+module.exports = {
+  hashingPassword,
+  comparePassword,
+  generateToken
+}

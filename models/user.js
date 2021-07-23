@@ -1,4 +1,7 @@
 'use strict';
+
+const { hashingPassword } = require('../helpers/helpersIndex')
+
 const {
   Model
 } = require('sequelize');
@@ -20,5 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
+
+  User.beforeCreate((instances, options) => {
+    instances.password = hashingPassword(instances.password)
+  })
+
   return User;
 };
