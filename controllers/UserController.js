@@ -41,7 +41,7 @@ class UserController {
                 password: userData.password
             })
             res.status(200).json({
-                token : access_token
+                access_token
             })
         })
         .catch((err) => {

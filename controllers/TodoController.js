@@ -36,7 +36,8 @@ class TodoController {
         })
         .catch(err => {
             res.status(500).json({
-                error : 'Internal Server Error!'
+                error : 'Internal Server Error!',
+                detail : err
             })
         })
     }
@@ -104,8 +105,8 @@ class TodoController {
 
     static patchTodo (req, res) {
         let id = +req.params.id
-        let input = req.body
-        Todo.update({ input }, {
+        let status = req.body.status
+        Todo.update({ status }, {
             where: {
                 id : id
             },

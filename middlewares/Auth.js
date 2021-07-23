@@ -1,4 +1,4 @@
-const { decodeToken } = require('../helpers')
+const { decodeToken } = require('../helpers/helpersIndex')
 const { User, Todo } = require('../models')
 
 function authentication (req, res, next) {
@@ -24,16 +24,17 @@ function authentication (req, res, next) {
             })
     } catch (err) {
         res.status(401).json({
-            error: 'Invalid Token'
+            error: 'Invalid Token',
+            detail: err
         })
     }
 }
 
 function authorization(req, res, next) {
-    Todo.findOne({
-       id:  req.params.id
-    })
+    let id = +req.params.id
+    Todo.findByPk(id)
     .then((todo) => {
+        console.log(todo)
         if (!todo) {
             throw {error : 'Authorization Error'}
         } else {
@@ -51,10 +52,11 @@ function authorization(req, res, next) {
             res.status(401).json({
                 error: 'User is not authorized!'
             })
+        } else {
+            res.status(500).json({
+                error: 'Internal Server Error'
+            })
         }
-        res.status(500).json({
-            error: 'Internal Server Error'
-        })
     })
 }
 
