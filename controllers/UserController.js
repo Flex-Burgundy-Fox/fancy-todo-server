@@ -17,8 +17,8 @@ class UserController {
             })
         })
         .catch((err) => {
-            res.status(500).json({
-                error: 'Internal Server Error'
+            res.status(400).json({
+                error: 'Validation Error'
             })
         })
     }
@@ -36,12 +36,12 @@ class UserController {
                     error: "Login Failed"
                 }
             }
-            const token = generateToken({
+            const access_token = generateToken({
                 id: userData.id,
                 password: userData.password
             })
             res.status(200).json({
-                token : token
+                token : access_token
             })
         })
         .catch((err) => {

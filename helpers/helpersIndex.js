@@ -19,8 +19,16 @@ function generateToken(payload) {
   return token
 }
 
+function decodeToken(token) {
+  const decodedToken = jwt.verify(token, PRIVATE_KEY)
+  return decodedToken
+}
+
+function authentication() {}
+
 module.exports = {
   hashingPassword,
   comparePassword,
-  generateToken
+  generateToken,
+  decodeToken
 }

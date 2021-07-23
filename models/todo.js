@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     status: DataTypes.STRING,
     due_date: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       validate: {
         isAfter: new Date().toString()
       },

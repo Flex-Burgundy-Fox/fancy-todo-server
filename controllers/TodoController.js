@@ -3,7 +3,11 @@ const { Todo } = require ('../models')
 class TodoController {
 
     static readTodo (req, res) {
-        Todo.findAll()
+        Todo.findAll({
+            where : {
+                UserId : req.currentUser.id
+            }
+        })
         .then((data) => {
             res.status(200).json({
                 result: data
@@ -22,7 +26,8 @@ class TodoController {
             {
                 title, 
                 description, 
-                due_date
+                due_date,
+                UserId : req.currentUser.id
             })
         .then((data) =>{
             res.status(201).json({
