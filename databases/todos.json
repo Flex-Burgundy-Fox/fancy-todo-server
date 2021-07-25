@@ -2,11 +2,13 @@
     {
         "title": "Nyuci piring",
         "description": "mesti kelar",
+        "status": "Open",
         "due_date": "01-01-2022"
     },
     {
         "title": "Bobo ciang",
         "description": "ini penting",
+        "status": "Closed",
         "due_date": "01-01-2023"
     }
 ]
