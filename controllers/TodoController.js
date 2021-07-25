@@ -18,6 +18,23 @@ class ToDoController {
             })
     }
 
+    static findOneTodo(req, res, next) {
+        Todo.findOne({
+            where: { id: +req.params.id },
+            returning: true
+        })
+            .then(data => {
+                if (data.length === 0) {
+                    throw { name: 'No data exist' }
+                } else {
+                    res.status(200).json({ result: data })
+                }
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
     static addTodo(req, res, next) {
         const { title, description, due_date } = req.body
         const UserId = +req.currentUser.id
@@ -43,7 +60,6 @@ class ToDoController {
 
     static editAllAttributesTodo(req, res, next) {
         const { title, description, status, due_date } = req.body
-        const { id } = req.params
         const UserId = +req.currentUser.id
 
         Todo.update({
@@ -53,7 +69,7 @@ class ToDoController {
             due_date,
             UserId
         }, {
-            where: { id: +id },
+            where: { id: +req.params.id },
             returning: true
         })
             .then(data => {

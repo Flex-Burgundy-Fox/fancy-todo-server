@@ -11,6 +11,7 @@ router.use(authentication);
 router.get('/todos', ToDoController.listTodo)
 router.post('/todos', ToDoController.addTodo)
 
+router.get('/todos/:id', authorization, ToDoController.findOneTodo)
 router.put('/todos/:id', authorization, ToDoController.editAllAttributesTodo)
 router.patch('/todos/:id', authorization, ToDoController.editSomeAttributesTodo)
 router.delete('/todos/:id', authorization, ToDoController.deleteTodo)
