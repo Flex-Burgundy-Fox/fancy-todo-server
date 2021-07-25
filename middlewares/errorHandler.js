@@ -5,12 +5,12 @@ const errorHandler = (err, req, res, next) => {
 
     switch (err.name) {
         case 'No data exist':
-            statusCode = 404
+            statusCode = 400
             name = err.name
             break
 
         case 'Data not found':
-            statusCode = 404
+            statusCode = 400
             name = err.name
             break
 
@@ -49,15 +49,12 @@ const errorHandler = (err, req, res, next) => {
 
         default:
             statusCode = 500
+            // console.log(err);
             name = 'Internal Server Error'
             error.push(err)
     }
 
-    if (statusCode === 404) {
-        res.status(statusCode).json({ name: name })
-    } else {
-        res.status(statusCode).json({ name: name, error })
-    }
+    res.status(statusCode).json({ name, error })
 
 }
 

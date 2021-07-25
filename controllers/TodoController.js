@@ -14,15 +14,17 @@ class ToDoController {
                 }
             })
             .catch(err => {
+                console.log(err);
                 next(err)
             })
     }
 
     static findOneTodo(req, res, next) {
-        Todo.findOne({
-            where: { id: +req.params.id },
-            returning: true
-        })
+        const id = +req.params.id
+        sequelize.query(`select a.id, title, description, status, due_date, email, a."createdAt", a."updatedAt" 
+                            from "Todos" a
+                            inner join "Users" b on a."UserId" = b.id 
+                            where a.id = ${id} limit 1`, { type: sequelize.QueryTypes.SELECT })
             .then(data => {
                 if (data.length === 0) {
                     throw { name: 'No data exist' }
@@ -36,9 +38,8 @@ class ToDoController {
     }
 
     static addTodo(req, res, next) {
-        const { title, description, due_date } = req.body
+        const { title, description, status, due_date } = req.body
         const UserId = +req.currentUser.id
-        const status = "Open"
 
         // sequelize.query(`insert into public."Todos" (title, description, due_date, "createdAt") 
         //                  values ('${title}', '${description}', '${due_date}', NOW()) returning *`,
