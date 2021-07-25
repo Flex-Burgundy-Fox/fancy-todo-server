@@ -204,7 +204,7 @@
 
 - **Success Response:**
 
-  - **Code:** 201 <br />
+  - **Code:** 200 <br />
     **Content:**
     ```json
         {
