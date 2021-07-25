@@ -82,7 +82,12 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Date must be greater than or equals to current date",
         },
       },
+    },
+
+    UserId: {
+      type: DataTypes.INTEGER,
     }
+
   }, {
     sequelize,
     modelName: 'Todo',

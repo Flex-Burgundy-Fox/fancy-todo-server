@@ -3,7 +3,9 @@ const { Todo } = require('../models')
 
 class ToDoController {
     static listTodo(req, res, next) {
-        sequelize.query('select * from "Todos"', { type: sequelize.QueryTypes.SELECT })
+        sequelize.query(`select a.id, title, description, status, due_date, a."createdAt", a."updatedAt", email 
+                            from "Todos" a
+                            inner join "Users" b on a."UserId" = b.id `, { type: sequelize.QueryTypes.SELECT })
             .then(data => {
                 if (data.length === 0) {
                     throw { name: 'No data exist' }
@@ -18,6 +20,7 @@ class ToDoController {
 
     static addTodo(req, res, next) {
         const { title, description, due_date } = req.body
+        const UserId = +req.currentUser.id
         const status = "Open"
 
         // sequelize.query(`insert into public."Todos" (title, description, due_date, "createdAt") 
@@ -27,7 +30,8 @@ class ToDoController {
             title,
             description,
             status,
-            due_date
+            due_date,
+            UserId
         })
             .then(data => {
                 res.status(201).json({ message: "Successfully created", result: data })
@@ -40,12 +44,14 @@ class ToDoController {
     static editAllAttributesTodo(req, res, next) {
         const { title, description, status, due_date } = req.body
         const { id } = req.params
+        const UserId = +req.currentUser.id
 
         Todo.update({
             title,
             description,
             status,
-            due_date
+            due_date,
+            UserId
         }, {
             where: { id: +id },
             returning: true
