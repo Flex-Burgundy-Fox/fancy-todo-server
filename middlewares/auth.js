@@ -5,19 +5,27 @@ const { decodeToken } = require("../helpers/jwt")
 function authentification(req, res, next) {
   const { access_token } = req.headers
 
+  if (!access_token) return next({ name: "Missing Access Token" })
+
   try {
     const userDecoded = decodeToken(access_token)
-
+    
     User.findByPk(userDecoded.id)
       .then((user) => {
-        req.currentUser = {
-          id: user.id
+        if (!user) {
+          throw {
+            name: "Authentification Error"
+          }
+        } else {
+          req.currentUser = {
+            id: user.id
+          }
+          next()
         }
-        next()
       })
-      .catch((err) => res.status(500).json({ err }))
+      .catch((err) => next(err))
   } catch (err) {
-    res.status(401).json({ message: "invalid token" })
+    next(err)
   }
 }
 
@@ -32,29 +40,19 @@ function authorization(req, res, next) {
     .then((todo) => {
       if (!todo) {
         throw {
-          name: "AuthorizationError",
-          message: "Todo Not Found"
+          name: "Not Found"
         }
       } else {
         if (todo.UserId === req.currentUser.id) {
           next()
         } else {
           throw {
-            name: "AuthorizationError",
-            message: "User Not Authorized"
+            name: "Authorization Error"
           }
         }
       }
     })
-    .catch((err) => {
-      if (err.name === "AuthorizationError") {
-        const message = err.message
-
-        res.status(401).json({ message })
-      } else {
-        res.status(500).json({ err })
-      }
-    })
+    .catch((err) => next(err))
 }
 
 module.exports = {

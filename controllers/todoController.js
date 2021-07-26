@@ -1,8 +1,7 @@
-const { Todo, User } = require("../models")
-const moment = require("moment")
+const { Todo } = require("../models")
 
 class TodoController {
-  static addTodo(req, res) {
+  static addTodo(req, res, next) {
     const { title, description, status, due_date } = req.body
 
     const UserId  = req.currentUser.id
@@ -15,53 +14,31 @@ class TodoController {
       UserId
     })
       .then((result) => res.status(201).json({ todo: result }))
-      .catch((err) => {
-        console.log(err)
-        if (err.name === "SequelizeValidationError") {
-          const message = err.errors[0].message
-
-          res.status(400).json({ message })
-        } else {
-          const message = err.name
-
-          res.status(500).json({ message })
-        }
-      })
+      .catch((err) => next(err))
   }
 
-  static showTodos(req, res) {
+  static showTodos(req, res, next) {
     Todo.findAll({
       order: [
         ["id", "ASC"]
-      ]
+      ],
+      where: {
+        UserId: req.currentUser.id
+      }
     })
       .then((result) => res.status(200).json({ todos: result }))
-      .catch((err) => {
-        const message = err.name
-
-        res.status(500).json({ message })
-      })
+      .catch((err) => next(err))
   }
 
-  static showTodoById(req, res) {
+  static showTodoById(req, res, next) {
     const id = +req.params.id
 
     Todo.findByPk(id)
-      .then((result) => {
-        if (result === null) {
-          res.status(404).json({ message: "Data not found" })
-        } else {
-          res.status(200).json({ todo: result })
-        }
-      })
-      .catch((err) => {
-        const message = err.name
-
-        res.status(500).json({ message })
-      })
+      .then((result) => res.status(200).json({ todo: result }))
+      .catch((err) => next(err))
   }
 
-  static updateTodo(req, res) {
+  static updateTodo(req, res, next) {
     const id = +req.params.id
 
     const { title, description, status, due_date } = req.body
@@ -73,30 +50,14 @@ class TodoController {
       returning: true
     })
       .then((result) => {
-        const status = result[0]
+        const updatedTodo = result[1][0]
 
-        if (status) {
-          const updatedTodo = result[1][0]
-
-          res.status(200).json({ todo: updatedTodo })
-        } else {
-          res.status(404).json({ message: "Data not found" })
-        }
+        res.status(200).json({ todo: updatedTodo })
       })
-      .catch((err) => {
-        if (err.name === "SequelizeValidationError") {
-          const message = err.errors[0].message
-
-          res.status(400).json({ message })
-        } else {
-          const message = err.name
-
-          res.status(500).json({ message })
-        }
-      })
+      .catch((err) => next(err))
   }
 
-  static updateStatusTodo(req, res) {
+  static updateStatusTodo(req, res, next) {
     const id = +req.params.id
 
     const status = req.body.status
@@ -108,30 +69,14 @@ class TodoController {
       returning: true
     })
       .then((result) => {
-        const status = result[0]
-
-        if (status) {
-          const updatedTodo = result[1][0]
-          
-          res.status(200).json({ todo: updatedTodo })
-        } else {
-          res.status(404).json({ message: "Data not found" })
-        }
+        const updatedTodo = result[1][0]
+        
+        res.status(200).json({ todo: updatedTodo })
       })
-      .catch((err) => {
-        if (err.name === "SequelizeValidationError") {
-          const message = err.errors[0].message
-
-          res.status(400).json({ message })
-        } else {
-          const message = err.name
-
-          res.status(500).json({ message })
-        }
-      })
+      .catch((err) => next(err))
   }
 
-  static deleteTodo(req, res) {
+  static deleteTodo(req, res, next) {
     const id = +req.params.id
 
     Todo.destroy({
@@ -139,20 +84,8 @@ class TodoController {
         id
       }
     })
-      .then((result) => {
-        const status = result
-        
-        if (status) {
-          res.status(200).json({ message: "Success, data has been deleted" })
-        } else {
-          res.status(404).json({ message: "Data not found" })
-        }
-      })
-      .catch((err) => {
-        const message = err.name
-
-        res.status(500).json({ message })
-      })
+      .then(() => res.status(200).json({ message: "Success, data has been deleted" }))
+      .catch((err) => next(err))
   }
 }
 
