@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const PRIVATE_KEY = 'RAHASIA'
+const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 
 function hashingPassword(password) {
