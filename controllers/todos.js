@@ -14,22 +14,17 @@ class Controller {
         .then((result) => {
             res.status(201).json(result)
         }).catch((err) => {
-            if(err.name === "SequelizeValidationError") res.status(400).json(err.errors)
-            else res.status(500).json(err)
+            if(err.name === "SequelizeValidationError") next(err)
+            else next(err)
         });
     }
 
     static viewTodo (req, res){
         Todo.findAll()
-        // Todo.findAll({
-        //     where : {
-        //         UserId : req.currentUser.id
-        //     }
-        // })
         .then((result) => {
             res.status(200).json(result)
         }).catch((err) => {
-            res.status(500).json(err)
+            next(err)
         });
     }
 
@@ -40,11 +35,10 @@ class Controller {
             }
         })
         .then((result) => {
-            if(!result.length) throw {message : "error not found"}
+            if(!result.length) next({name : "TODO NOT FOUND"})
             res.status(200).json(result[0])
         }).catch((err) => {
-            if(err.message === "error not found")res.status(404).json(err)
-            else res.status(500).json(err)
+            next(err)
         });
     }
 
@@ -56,13 +50,10 @@ class Controller {
             returning : true
         })
         .then((result) => {
-            // console.log(result);
-            if(!result[0]) throw {message : "error not found"}
+            if(!result[0]) next ({name : "TODO NOT FOUND"})
             else res.status(200).json(result[1][0])
         }).catch((err) => {
-            if(err.name === "SequelizeValidationError") res.status(400).json(err.errors)
-            if(err.message === "error not found")res.status(404).json(err)
-            else res.status(500).json(err)
+            next(err)
         });
     }
 
@@ -75,20 +66,17 @@ class Controller {
             returning : true
         })
         .then((result) => {
-            // console.log(result);
-            if(!result[0]) throw {message : "error not found"}
+            if(!result[0]) next ({name : "TODO NOT FOUND"})
             else res.status(200).json(result[1][0])
         }).catch((err) => {
-            if(err.name === "SequelizeValidationError") res.status(400).json(err.errors)
-            if(err.message === "error not found")res.status(404).json(err)
-            else res.status(500).json(err)
+            next(err)
         });
     }
 
     static deleteTodo (req, res){
         Todo.findByPk(+req.params.id)
         .then((todo) => {
-            if(!todo) throw {message : "error not found"}
+            if(!todo) next ({name : "TODO NOT FOUND"})
 
             Todo.destroy({
                 where : {
@@ -102,8 +90,7 @@ class Controller {
             });
             
         }).catch((err) => {
-            if(err.message === "error not found")res.status(404).json(err)
-            else res.status(500).json(err)
+            next(err)
         });
     }
 

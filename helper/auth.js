@@ -19,7 +19,7 @@ function authentication(req, res, next) {
             next(err)
         });
     } catch(err) {
-      next({ name : 'JWT invalid'})
+      next(err)
     }
 }
 
@@ -31,16 +31,11 @@ function authorization (req, res, next){
         }
     })
     .then((result) => {
-        if(!result) throw {
-            name: 'NOT FOUND' , 
-            message : 'Todo not found'
-        }
+        if(!result) next({name: 'TODO NOT FOUND' }) 
         if(result.UserId === req.currentUser.id) next()
-        else throw {name : 'UNAUTHORIZED' , message : 'Access Invalid'}
+        else next ({name : 'UNAUTHORIZED'})
     }).catch((err) => {
-        if(err.name === 'NOT FOUND') res.status(404).json(err.message)
-        if(err.name === 'UNAUTHORIZED') res.status(401).json(err.message)
-        res.status(500).json(err)
+        next(err)
     });
 
 }

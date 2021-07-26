@@ -11,7 +11,19 @@ module.exports = (err, req, res, next) => {
             statusCode = 401
             errors.push(err.name)
             break;
-    
+        case 'TODO NOT FOUND':
+            statusCode = 404
+            errors.push(err.name)
+            break;
+        case 'UNAUTHORIZED':
+            statusCode = 404
+            errors.push('Access Invalid')
+            break;
+        case "SequelizeValidationError":
+            statusCode = 400
+            errors.push(err.errors)
+            break;
+
         default:
             statusCode = 500
             errors.push('Internal Server Error')
