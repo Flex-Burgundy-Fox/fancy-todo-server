@@ -4,6 +4,8 @@ const { User, Todo } = require('../models')
 function authentication (req, res, next) {
     const { access_token } = req.headers
 
+    if (!access_token) return next({error : 'No Access Token'})
+
     try {
         const decoded = decodeToken(access_token)
         User.findByPk(decoded.id)
@@ -18,15 +20,10 @@ function authentication (req, res, next) {
                 }
             })
             .catch((err) => {
-                res.status(500).json({
-                    error: 'Internal Server Error'
-                })
+                next(err)
             })
     } catch (err) {
-        res.status(401).json({
-            error: 'Invalid Token',
-            detail: err
-        })
+        next(err)
     }
 }
 
@@ -48,15 +45,7 @@ function authorization(req, res, next) {
         }
     })
     .catch((err) => {
-        if (err.error === 'Authorization Error') {
-            res.status(401).json({
-                error: 'User is not authorized!'
-            })
-        } else {
-            res.status(500).json({
-                error: 'Internal Server Error'
-            })
-        }
+        next(err)
     })
 }
 

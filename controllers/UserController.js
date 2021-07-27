@@ -1,9 +1,10 @@
+
 const { comparePassword, generateToken } = require('../helpers/helpersIndex')
 const { User } = require('../models')
 
 class UserController {
 
-    static registerUser (req, res) {
+    static registerUser (req, res, next) {
         let { email, password } = req.body
         User.create(
             {
@@ -17,13 +18,11 @@ class UserController {
             })
         })
         .catch((err) => {
-            res.status(400).json({
-                error: 'Validation Error'
-            })
+            next(err)
         })
     }
 
-    static loginUser (req, res) {
+    static loginUser (req, res, next) {
         const { email, password } = req.body
         User.findOne({
             where: { email }
@@ -37,22 +36,14 @@ class UserController {
                 }
             }
             const access_token = generateToken({
-                id: userData.id,
-                password: userData.password
+                id: userData.id
             })
             res.status(200).json({
                 access_token
             })
         })
         .catch((err) => {
-            if (err.error === 'Login Failed') {
-                res.status(400).json({
-                    error: 'Wrong Email / Password!'
-                })
-            }
-            res.status(500).json({
-                error: 'Internal Server Error'
-            })
+            next(err)
         })
     }
 

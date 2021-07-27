@@ -15,6 +15,7 @@ Mendapatkan semua data todo yang ada
   `GET`
 
 - **Url Param:** none
+- **Auth:** Diperlukan access_token di header
 - **Data Param:** none
 
 - **Success Response:**
@@ -97,6 +98,7 @@ menambahkan data Todo
   `POST`
 
 - **Url Param:** none
+- **Auth:** Diperlukan access_token di header
 - **Body:**
 
   ```json
@@ -175,6 +177,7 @@ Mendapatkan data todo yang ada sesuai Id
   `GET`
 
 - **Url Param:** none
+- **Auth:** Diperlukan access_token di header
 - **Data Param:** none
 
 - **Success Response:**
@@ -236,6 +239,7 @@ Mengganti data todo yang ada
   `PUT`
 
 - **Url Param:** none
+- **Auth:** Diperlukan access_token di header
 - **Data Param:** none
 
 - **Success Response:**
@@ -302,6 +306,7 @@ Mengganti Status dari data Todos
   `PATCH`
 
 - **Url Param:** none
+- **Auth:** Diperlukan access_token di header
 - **Data Param:** none
 
 - **Success Response:**
@@ -366,6 +371,7 @@ Mendelete data todos
   `DELETE`
 
 - **Url Param:** none
+- **Auth:** Diperlukan access_token di header
 - **Data Param:** none
 
 - **Success Response:**
@@ -399,4 +405,100 @@ Mendelete data todos
         "error": "Internal Server Error"
     }
     ```   
-     <br/>
+---
+
+## User
+
+### Register User
+
+Meregister User kedalam database
+
+- **URL**
+
+  `/users/register`
+
+- **Method:**
+
+  `POST`
+
+- **Url Param:** none
+- **Data Param:** none
+
+- **Success Response:**
+
+  - **Code:** 200 <br />
+    **Content:**
+
+    ```json
+  {
+    "email": "user2@mail.com"
+  }
+    ```
+
+- **Error Response:**
+
+  - **Code:** 500 INTERNAL SERVER ERROR
+  - **Content:** 
+   ```json
+    {"error": "Internal Server Error"} 
+  ```
+    
+  - **Code:** 400 BAD REQUEST <br />
+  **Content:**
+
+  ```json
+  {
+    "error" : "Validation Error!"
+  }
+  ```
+  <br/>
+
+---
+
+### Login User
+
+Meloginkan user dan mendapatkan token
+
+- **URL**
+
+  `//users/login`
+
+- **Method:**
+
+  `POST`
+
+- **Url Param:** none
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:**
+
+    ```json
+    
+    {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGFzc3dvcmQiOiIkMmIkMTAkQ3Z4NUd5RHBlVEk4eVpaSGxNMnJDZWhjMjdZeUhsYm1wR3BzYTdaak4zNDF1N2xNcUFvL1ciLCJpYXQiOjE2MjczNzQwNDR9.bwLrQXKXSFh9BgsjrCGviRaFtiVjj_cMsDdwPNg2Rz0"
+    }
+    
+    ```
+
+- **Error Response:**
+
+  - **Code:** 400 BAD REQUEST <br />
+    **Content:**
+
+  ```json
+  {
+    "error" : "Wrong Email or Password"
+  }
+  ```
+  - **Code:** 500 INTERNAL SERVER ERROR
+  - **Content:** 
+  ```json
+    {
+        "error": "Internal Server Error"
+    }
+    ``` 
+    <br />
+
+---
