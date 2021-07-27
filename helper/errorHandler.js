@@ -19,6 +19,10 @@ module.exports = (err, req, res, next) => {
             statusCode = 404
             errors.push('Access Invalid')
             break;
+        case "Username or Password is wrong":
+            statusCode = 400
+            errors.push(err.name)
+            break;
         case "SequelizeValidationError":
             statusCode = 400
             errors.push(err.errors)

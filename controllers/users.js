@@ -8,7 +8,7 @@ class Controller {
         .then((result) => {
             res.status(201).json(result)
         }).catch((err) => {
-            res.status(400).json(err)
+            next(err)
         });
     }
     
@@ -26,9 +26,9 @@ class Controller {
                 })
                 res.status(200).json({access_token : token})
             } 
-            else throw {name : "Username or Password is wrong"}
+            else next({name : "Username or Password is wrong"}) 
         }).catch((err) => {
-            res.status(400).json(err)
+            next(err)
         });
     }
 }

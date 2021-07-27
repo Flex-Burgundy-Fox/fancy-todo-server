@@ -2,24 +2,23 @@ const {Todo} = require('../models')
 
 class Controller {
 
-    static addTodo (req, res){
+    static addTodo (req, res, next){
         let input = {
-            title : req.body.title,
-            description : req.body.description,
+            title : req.body.title ,
+            description : req.body.description ,
             status : req.body.status,
             due_date : req.body.due_date,
-            UserId : req.currentUser.id
+            UserId : req.currentUser.id 
         }
         Todo.create(input)
         .then((result) => {
             res.status(201).json(result)
         }).catch((err) => {
-            if(err.name === "SequelizeValidationError") next(err)
-            else next(err)
+            next(err)
         });
     }
 
-    static viewTodo (req, res){
+    static viewTodo (req, res, next){
         Todo.findAll()
         .then((result) => {
             res.status(200).json(result)
@@ -28,7 +27,7 @@ class Controller {
         });
     }
 
-    static findTodo (req, res){
+    static findTodo (req, res, next){
         Todo.findAll({
             where : {
                 id : +req.params.id
@@ -42,7 +41,7 @@ class Controller {
         });
     }
 
-    static putTodo (req, res){
+    static putTodo (req, res, next){
         Todo.update(req.body,{
             where : {
                 id : +req.params.id
@@ -57,7 +56,7 @@ class Controller {
         });
     }
 
-    static patchTodo (req, res){
+    static patchTodo (req, res, next){
         let input = { status : req.body.status}
         Todo.update(input,{
             where : {
@@ -73,7 +72,7 @@ class Controller {
         });
     }
 
-    static deleteTodo (req, res){
+    static deleteTodo (req, res, next){
         Todo.findByPk(+req.params.id)
         .then((todo) => {
             if(!todo) next ({name : "TODO NOT FOUND"})

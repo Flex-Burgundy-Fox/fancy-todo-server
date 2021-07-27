@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const PRIVATE_KEY = "rahasia"
+const PRIVATE_KEY = process.env.PRIVATE_KEY
 
 function generateToken (payload){
     return jwt.sign(payload, PRIVATE_KEY);
