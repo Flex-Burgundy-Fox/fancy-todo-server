@@ -19,7 +19,11 @@ class Controller {
     }
 
     static viewTodo (req, res, next){
-        Todo.findAll()
+        Todo.findAll({
+            where : {
+                UserId : +req.currentUser.id
+            }
+        })
         .then((result) => {
             res.status(200).json(result)
         }).catch((err) => {
