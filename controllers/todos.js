@@ -6,7 +6,7 @@ class Controller {
         let input = {
             title : req.body.title ,
             description : req.body.description ,
-            status : req.body.status,
+            status : "not done",
             due_date : req.body.due_date,
             UserId : req.currentUser.id 
         }
