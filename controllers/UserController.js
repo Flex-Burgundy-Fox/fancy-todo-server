@@ -1,6 +1,7 @@
 
 const { comparePassword, generateToken } = require('../helpers/helpersIndex')
 const { User } = require('../models')
+const {OAuth2Client} = require('google-auth-library');
 
 class UserController {
 
@@ -47,6 +48,45 @@ class UserController {
         })
     }
 
+    static googleLogin (req, res, next) {
+        const { token } = req.body
+        const CLIENT_ID = process.env.CLIENT_ID_GOOGLE
+        let emailUser
+
+        const client = new OAuth2Client(CLIENT_ID)
+            client.verifyIdToken({
+                idToken: token,
+                audience: CLIENT_ID,
+            })
+            .then((ticket) => {
+                const { email } = ticket.getPayload()
+                // console.log(payload)
+                emailUser = email
+                return User.findOne ({
+                    where : {
+                        email : email
+                    }
+                })
+                .then((user) => {
+                    // console.log(user)
+                    if (!user) {
+                        return User.create({
+                            email: email,
+                            password: process.env.USER_PASSWORD_DEF
+                        })
+                    } else {
+                        const payload = {email : user.email, id : user.id}
+                        const access_token = signToken(payload)
+                        res.status(201).json({
+                            access_token : access_token
+                        })
+                    }
+                })
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
 }
 
 
