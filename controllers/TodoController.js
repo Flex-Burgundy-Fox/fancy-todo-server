@@ -3,28 +3,33 @@ const { Todo } = require('../models')
 
 class ToDoController {
     static listTodo(req, res, next) {
-        sequelize.query(`select a.id, title, description, status, due_date, a."createdAt", a."updatedAt", email 
-                            from "Todos" a
-                            inner join "Users" b on a."UserId" = b.id `, { type: sequelize.QueryTypes.SELECT })
+        const { id } = req.currentUser;
+
+        sequelize.query(`select a.id, title, description, status, to_char(due_date,'yyyy-mm-dd') as due_date, 
+                         to_char(due_date,'dd Mon yyyy') as due_date2, DATE_PART('day', -AGE( due_date )) as due, 
+                         email ,a."createdAt", a."updatedAt", to_char(now(),'yyyy-mm-dd') as today
+                         from "Todos" a
+                         inner join "Users" b on a."UserId" = b.id  where a."UserId" = ${+id} order by a.id`, { type: sequelize.QueryTypes.SELECT })
             .then(data => {
                 if (data.length === 0) {
-                    throw { name: 'No data exist' }
+                    res.status(200).json({ count: 0, result: 'No todos' })
                 } else {
-                    res.status(200).json({ result: data })
+                    res.status(200).json({ count: data.length, result: data })
                 }
             })
             .catch(err => {
-                console.log(err);
                 next(err)
             })
     }
 
     static findOneTodo(req, res, next) {
         const id = +req.params.id
-        sequelize.query(`select a.id, title, description, status, due_date, email, a."createdAt", a."updatedAt" 
-                            from "Todos" a
-                            inner join "Users" b on a."UserId" = b.id 
-                            where a.id = ${id} limit 1`, { type: sequelize.QueryTypes.SELECT })
+        sequelize.query(`select a.id, title, description, status, to_char(due_date,'yyyy-mm-dd') as due_date, 
+                         to_char(due_date,'dd Mon yyyy') as due_date2, DATE_PART('day', -AGE( due_date )) as due, 
+                         email, a."createdAt", a."updatedAt" 
+                         from "Todos" a
+                         inner join "Users" b on a."UserId" = b.id 
+                         where a.id = ${id} limit 1`, { type: sequelize.QueryTypes.SELECT })
             .then(data => {
                 if (data.length === 0) {
                     throw { name: 'No data exist' }

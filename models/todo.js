@@ -71,15 +71,15 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           args: true,
-          msg: "Date can not be null",
+          msg: "Due date can not be null",
         },
         notEmpty: {
           args: true,
-          msg: "Date can not be empty",
+          msg: "Due date can not be empty",
         },
         isAfter: {
           args: moment().subtract(1, 'days').format(),
-          msg: "Date must be greater than or equals to current date",
+          msg: "Due date must be greater than or equals to current date",
         },
       },
     },
