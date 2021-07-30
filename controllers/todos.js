@@ -22,7 +22,8 @@ class Controller {
         Todo.findAll({
             where : {
                 UserId : +req.currentUser.id
-            }
+            },
+            order: [['id', 'ASC']]
         })
         .then((result) => {
             res.status(200).json(result)

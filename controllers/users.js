@@ -3,7 +3,7 @@ const {comparer} = require("../helper/bcrypt.js")
 const {generateToken} = require("../helper/jwt.js")
 
 class Controller {
-    static register (req, res){
+    static register (req, res, next){
         User.create(req.body)
         .then((result) => {
             res.status(201).json(result)
@@ -12,13 +12,15 @@ class Controller {
         });
     }
     
-    static login (req, res){
+    static login (req, res, next){
         User.findOne({
             where : {
                 email : req.body.email
             }
         })
         .then((result) => {
+            if(!result) next({name : "Username or Password is wrong"})
+            
             if(comparer(req.body.password, result.password)){
                 const token = generateToken({
                     id : result.id,

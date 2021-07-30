@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     due_date: {
       type: DataTypes.DATE,
       validate : {
-        isAfter: new Date().toISOString().split('T')[0]
+        isDate: true
       }
     },
     UserId : DataTypes.INTEGER
