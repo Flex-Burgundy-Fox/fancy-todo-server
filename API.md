@@ -1,6 +1,6 @@
 **Add Todo**
 ----
-  `Add todo data to database can be via json or bodyparser.`
+  `Add todo data to database can be via json or x-www-form-urlencoded.`
 
 * **URL**
 

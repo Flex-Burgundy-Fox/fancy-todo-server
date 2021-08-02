@@ -15,6 +15,10 @@ function errorHandlers(err, req, res, next) {
       statusCode = 400
       messages = err.errors ? err.errors.map((el) => el.message) : []
       break;
+    case "SequelizeUniqueConstraintError":
+      statusCode = 400
+      messages = err.errors
+      break;
     case "Not Found":
       statusCode = 404
       messages.push("Todo Not Found")
