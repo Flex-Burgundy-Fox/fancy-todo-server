@@ -461,7 +461,7 @@ Meloginkan user dan mendapatkan token
 
 - **URL**
 
-  `//users/login`
+  `/users/login`
 
 - **Method:**
 
@@ -478,6 +478,62 @@ Meloginkan user dan mendapatkan token
     
     {
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGFzc3dvcmQiOiIkMmIkMTAkQ3Z4NUd5RHBlVEk4eVpaSGxNMnJDZWhjMjdZeUhsYm1wR3BzYTdaak4zNDF1N2xNcUFvL1ciLCJpYXQiOjE2MjczNzQwNDR9.bwLrQXKXSFh9BgsjrCGviRaFtiVjj_cMsDdwPNg2Rz0"
+    }
+    
+    ```
+
+- **Error Response:**
+
+  - **Code:** 400 BAD REQUEST <br />
+    **Content:**
+
+  ```json
+  {
+    "error" : "Wrong Email or Password"
+  }
+  ```
+  - **Code:** 500 INTERNAL SERVER ERROR
+  - **Content:** 
+  ```json
+    {
+        "error": "Internal Server Error"
+    }
+    ``` 
+    <br />
+
+### Login Google
+
+Meloginkan/Mendaftarkan user melalui 3rd Party API Google dan mendapatkan token
+
+- **URL**
+
+  `/users/login-w-google`
+
+- **Method:**
+
+  `POST`
+
+- **Url Param:** none
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:**
+
+    ```json
+    
+    {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGFzc3dvcmQiOiIkMmIkMTAkQ3Z4NUd5RHBlVEk4eVpaSGxNMnJDZWhjMjdZeUhsYm1wR3BzYTdaak4zNDF1N2xNcUFvL1ciLCJpYXQiOjE2MjczNzQwNDR9.bwLrQXKXSFh9BgsjrCGviRaFtiVjj_cMsDdwPNg2Rz0"
+    }
+    
+    ```
+   - **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    
+    {
+    "email": "test123@gmail.com"
     }
     
     ```

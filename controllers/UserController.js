@@ -59,29 +59,41 @@ class UserController {
                 audience: CLIENT_ID,
             })
             .then((ticket) => {
+                // const payload = ticket.getPayload()
                 const { email } = ticket.getPayload()
-                // console.log(payload)
+                console.log(email)
                 emailUser = email
                 return User.findOne ({
                     where : {
-                        email : email
+                        email : emailUser
                     }
                 })
-                .then((user) => {
-                    // console.log(user)
-                    if (!user) {
-                        return User.create({
-                            email: email,
-                            password: process.env.USER_PASSWORD_DEF
-                        })
-                    } else {
-                        const payload = {email : user.email, id : user.id}
-                        const access_token = signToken(payload)
-                        res.status(201).json({
-                            access_token : access_token
-                        })
-                    }
-                })
+            })
+            .then((user) => {
+                // console.log(user)
+                if (!user) {
+                    return User.create({
+                        email: emailUser,
+                        password: process.env.USER_PASSWORD_DEF
+                    })
+                } else {
+                    const payload = {email : user.email, id : user.id}
+                    const access_token = generateToken(payload)
+                    // console.log(access_token)
+                    res.status(200).json({
+                        access_token
+                    })
+                }
+            })
+            .then((user) => {
+                // console.log(user)
+                // console.log("then kedua")   
+                const payload = {email : user.email, id : user.id}
+                const access_token = generateToken(payload)
+                    // console.log(access_token)
+                    res.status(201).json({
+                        access_token
+                    })
             })
             .catch(err => {
                 next(err)
