@@ -65,6 +65,7 @@ module.exports = (sequelize, DataTypes) => {
     hooks:{
       beforeCreate : (todo, option) => {
         todo.due_date = new Date(todo.due_date).toLocaleDateString('fr-CA')
+        todo.status = "Undone"
       }
     },
     sequelize,

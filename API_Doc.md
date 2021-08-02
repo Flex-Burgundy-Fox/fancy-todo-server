@@ -15,6 +15,11 @@ menambahkan Todo ke dalam database
 *  **URL Params** : none
 
 * **Data Params**
+  * **Headers:** <br />
+    {
+      access_token : required
+    }
+
   * **Body:** <br />
     {
       "title": "<todo title> required",
@@ -74,7 +79,11 @@ mengembalikan semua data Todo yang ada di dalam database
   
 *  **URL Params** : none
 
-* **Data Params** : none
+* **Data Params** : 
+ * **Headers:** <br />
+    {
+      access_token : required
+    }
 
 * **Success Response:** 
   * **Code:** 200 <br />
@@ -121,7 +130,11 @@ mengembalikan data Todo yang ada di dalam database sesuai dengan IDnya
   
 *  **URL Params** : required: TodoId=[number]
 
-* **Data Params** : none
+* **Data Params** : 
+ * **Headers:** <br />
+    {
+      access_token : required
+    }
 
 * **Success Response:** 
   * **Code:** 201 <br />
@@ -168,6 +181,11 @@ Edit data Todo di dalam database yang dipilih berdasarkan id
 *  **URL Params** : required: TodoId=[number]
 
 * **Data Params**
+ * **Headers:** <br />
+    {
+      access_token : required
+    }
+
   * **Body:** <br />
     {
       "title": "<todo title> required",
@@ -239,6 +257,11 @@ Edit status Todo di dalam database yang dipilih berdasarkan id
 *  **URL Params** : required: TodoId=[number]
 
 * **Data Params**
+ * **Headers:** <br />
+    {
+      access_token : required
+    }
+
   * **Body:** <br />
     {
       "status": "<todo status>"
@@ -306,7 +329,11 @@ Edit status Todo di dalam database yang dipilih berdasarkan id
   
 *  **URL Params** : required: TodoId=[number]
 
-* **Data Params**: none
+* **Data Params**: 
+ * **Headers:** <br />
+    {
+      access_token : required
+    }
 
 * **Success Response:** 
   * **Code:** 200 <br />

@@ -3,9 +3,10 @@ const express = require('express')
 const router = require('./routes')
 const errHandler = require('./middleware/errHandler')
 const app = express()
+const cors = require("cors")
 const port = 3000
 
-
+app.use(cors())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 

@@ -17,12 +17,19 @@ class TodoController {
 
     static showTodos(req, res, next) {
         Todo.findAll({
-            where: {UserId : req.currentUser.id}
+            where: {UserId : req.currentUser.id},
+            order: [['id', 'ASC']]
         })
         .then((data) => {
-            res.status(200).json({
-                result : data
-            })
+            if (!data) {
+                res.status(200).json({
+                    result : []
+                })
+            } else {
+                res.status(200).json({
+                    result : data
+                })
+            }
         })
         .catch((err) => {
             next(err)
@@ -30,6 +37,7 @@ class TodoController {
     }
 
     static getTodoId(req, res, next) {
+
         Todo.findOne({
             where : {id: +req.params.id}
         })
