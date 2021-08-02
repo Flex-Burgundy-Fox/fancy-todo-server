@@ -7,6 +7,13 @@
 - **Method:**
   `GET`
 
+- **Data Headers**: 
+    ```json
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsImVtYWlsIjoiZ3VsaXNAbWFpbC5jb20iLCJpYXQiOjE2Mjc5MDI2Njd9.tfbCRcdneH6GDdJjHN0_skBRI5P1EAvbH0aVeF1ABHA"
+        }
+    ```
+
 - **URL Params**: none
 
 - **Data Params**: none
@@ -17,7 +24,7 @@
 
     ```json
     {
-    "result": [
+    "token": [
         {
             "id": 11,
             "title": "Nyuci piring",
@@ -61,6 +68,13 @@
 
 - **Method:**
   `POST`
+
+- **Data Headers**: 
+    ```json
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsImVtYWlsIjoiZ3VsaXNAbWFpbC5jb20iLCJpYXQiOjE2Mjc5MDI2Njd9.tfbCRcdneH6GDdJjHN0_skBRI5P1EAvbH0aVeF1ABHA"
+        }
+    ```
 
 - **URL Params**: none
 
@@ -256,6 +270,13 @@
 - **Method:**
   `GET`
 
+- **Data Headers**: 
+    ```json
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsImVtYWlsIjoiZ3VsaXNAbWFpbC5jb20iLCJpYXQiOjE2Mjc5MDI2Njd9.tfbCRcdneH6GDdJjHN0_skBRI5P1EAvbH0aVeF1ABHA"
+        }
+    ```
+
 - **URL Params**: id
 
 - **Data Params**: none
@@ -332,6 +353,13 @@
 
 - **Method:**
   `PUT`
+
+- **Data Headers**: 
+    ```json
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsImVtYWlsIjoiZ3VsaXNAbWFpbC5jb20iLCJpYXQiOjE2Mjc5MDI2Njd9.tfbCRcdneH6GDdJjHN0_skBRI5P1EAvbH0aVeF1ABHA"
+        }
+    ```
 
 - **URL Params**: id
 
@@ -439,6 +467,13 @@
 - **Method:**
   `PATCH`
 
+- **Data Headers**: 
+    ```json
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsImVtYWlsIjoiZ3VsaXNAbWFpbC5jb20iLCJpYXQiOjE2Mjc5MDI2Njd9.tfbCRcdneH6GDdJjHN0_skBRI5P1EAvbH0aVeF1ABHA"
+        }
+    ```
+
 - **URL Params**: id
 
 - **Data Params**:
@@ -540,6 +575,13 @@
 - **Method:**
   `DELETE`
 
+- **Data Headers**: 
+    ```json
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDEsImVtYWlsIjoiZ3VsaXNAbWFpbC5jb20iLCJpYXQiOjE2Mjc5MDI2Njd9.tfbCRcdneH6GDdJjHN0_skBRI5P1EAvbH0aVeF1ABHA"
+        }
+    ```
+
 - **URL Params**: id
 
 - **Data Params**: none
@@ -601,3 +643,5 @@
             ]
         } 
     ```
+
+ 
