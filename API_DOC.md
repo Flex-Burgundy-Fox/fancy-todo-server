@@ -215,7 +215,7 @@ mengubah data todo
   - **Code:** 500 INTERNAL SERVER ERROR <br />
 ---
 
-### Checked Todoes
+### Patch Todoes
 
 mengubah status todo
 
@@ -322,3 +322,155 @@ menghapus data todo
     }
     ```
   - **Code:** 500 INTERNAL SERVER ERROR <br />
+---
+
+## User
+
+### Register
+
+Membuat/mendaftar akun baru
+
+- **URL**
+
+  `/register`
+
+- **Method:**
+
+  `POST`
+
+- **Url Param:** none
+- **Body:**
+
+  ```json
+  {
+    "email": "<email>",
+    "passowrd": "<password>",
+  }
+  ```
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "id": 1,
+        "email": "<email>",
+        "password": "<hashed password>",
+        "createdAt": "2021-05-24T00:56:21.112Z",
+        "updatedAt": "2021-05-24T00:56:21.112Z"
+      }
+    ]
+    ```
+
+- **Error Response:**
+  - **Code:** 400 VALIDATION ERROR <br />
+    **Content:**
+
+      ```json
+      {
+        "message": "Validation error: Validation isEmail on email failed"
+      }
+      ```
+  - **Code:** 500 INTERNAL SERVER ERROR <br />
+
+---
+
+### Login
+
+Masuk atau login ke akun yang sudah ada
+
+- **URL**
+
+  `/login`
+
+- **Method:**
+
+  `POST`
+
+- **Url Param:** none
+- **Body:**
+
+  ```json
+  {
+    "email": "<email>",
+    "passowrd": "<password>",
+  }
+  ```
+
+- **Success Response:**
+
+  - **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "access_token": "<JWT token>",
+      }
+    ]
+    ```
+
+- **Error Response:**
+  - **Code:** 400 <br />
+    **Content:**
+
+      ```json
+      "errors": [
+        "Username or Password is wrong"
+      ]
+      ```
+  - **Code:** 500 INTERNAL SERVER ERROR <br />
+
+---
+
+### Login with Google
+
+Login menggunakan akun Google
+
+- **URL**
+
+  `/login-google`
+
+- **Method:**
+
+  `POST`
+
+- **Url Param:** none
+- **Body:**
+
+  ```json
+  {
+    "token": "<token google>",
+  }
+  ```
+
+- **Success Response:**
+
+  - **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "access_token": "<JWT token>",
+      }
+    ]
+    ```
+  - **Code:** 201 First-time sign-in <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "access_token": "<JWT token>",
+      }
+    ]
+    ```
+
+- **Error Response:**
+  - **Code:** 500 INTERNAL SERVER ERROR <br />
+
+---

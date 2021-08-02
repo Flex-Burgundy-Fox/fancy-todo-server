@@ -5,6 +5,7 @@ const {authentication, authorization} = require('../helper/auth')
 
 router.post("/register",ControllerUser.register)
 router.post("/login",ControllerUser.login)
+router.post("/login-google",ControllerUser.google)
 
 router.use(authentication)
 router.post("/todos", ControllerTodo.addTodo)
