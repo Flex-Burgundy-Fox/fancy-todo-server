@@ -50,6 +50,7 @@ class UserController {
 
     static googleLogin (req, res, next) {
         const { token } = req.body
+        console.log(req.body)
         const CLIENT_ID = process.env.CLIENT_ID_GOOGLE
         let emailUser
 
@@ -61,7 +62,7 @@ class UserController {
             .then((ticket) => {
                 // const payload = ticket.getPayload()
                 const { email } = ticket.getPayload()
-                console.log(email)
+                // console.log(email)
                 emailUser = email
                 return User.findOne ({
                     where : {
