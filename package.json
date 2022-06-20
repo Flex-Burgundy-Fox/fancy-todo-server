@@ -1,0 +1,34 @@
+{
+  "name": "fancy-todo-server",
+  "version": "1.0.0",
+  "description": "fancy-todo-server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "SET NODE_ENV=development nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/megzgambino/fancy-todo-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/megzgambino/fancy-todo-server/issues"
+  },
+  "homepage": "https://github.com/megzgambino/fancy-todo-server#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "google-auth-library": "^7.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.6.0",
+    "save": "^2.4.0",
+    "sequelize": "^6.6.5"
+  }
+}
